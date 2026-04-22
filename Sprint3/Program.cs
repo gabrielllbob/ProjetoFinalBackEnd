@@ -17,25 +17,33 @@ builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<ITransacaoRepository, TransacaoRepository>();
 builder.Services.AddScoped<ITransacaoService, TransacaoService>();
-builder.Services.AddScoped<JwtService>(); // 👈 Não esqueça de registrar seu novo serviço
+builder.Services.AddScoped<JwtService>();
 
-// 2. Configurar Autenticação JWT (OBRIGATÓRIO ANTES DO BUILD)
+// 2. Configurar Autenticação JWT (com chave do appsettings)
+var jwtKey = builder.Configuration["JwtSettings:SecretKey"] ?? "GabrielLopesLimaPrecisaDeUmaBoaOportunidadeDeEmprego";
+var key = Encoding.UTF8.GetBytes(jwtKey);
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SUA_CHAVE_SECRETA_SUPER_LONGA_DE_PELO_MENOS_32_CARACTERES")),
+            IssuerSigningKey = new SymmetricSecurityKey(key),
             ValidateIssuer = false,
-            ValidateAudience = false
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero
         };
     });
 
 // 3. CORS
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowAngular", policy => {
-        policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials(); // Importante para enviar token
     });
 });
 
@@ -44,8 +52,16 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// 4. Middlewares (ORDEM IMPORTANTE!)
-if (app.Environment.IsDevelopment()) {
+// 4. Aplicar migrations ANTES de rodar (opcional)
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    dbContext.Database.Migrate();
+}
+
+// 5. Middlewares (ORDEM CORRETA É CRÍTICA!)
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
 }
@@ -53,14 +69,9 @@ if (app.Environment.IsDevelopment()) {
 app.UseHttpsRedirection();
 app.UseCors("AllowAngular");
 
-app.UseAuthentication(); // 👈 Valida o token
-app.UseAuthorization();  // 👈 Restringe o acesso
-app.MapControllers();
+app.UseAuthentication(); // PRIMEIRO autenticação
+app.UseAuthorization();  // DEPOIS autorização
 
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<Sprint3.Data.AppDbContext>();
-    dbContext.Database.Migrate(); // Cria o banco e as tabelas automaticamente
-}
+app.MapControllers();
 
 app.Run();

@@ -2,10 +2,17 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.Extensions.Configuration; // Adicione este using
 
 public class JwtService
 {
-    private readonly string _key = "GabrielLopesLimaPrecisaDeUmaBoaOportunidadeDeEmprego";
+    private readonly string _key;
+
+    // Injeção de dependência para ler o appsettings.json
+    public JwtService(IConfiguration configuration)
+    {
+        _key = configuration["JwtSettings:SecretKey"];
+    }
 
     public string GerarToken(string cpf, string role)
     {
