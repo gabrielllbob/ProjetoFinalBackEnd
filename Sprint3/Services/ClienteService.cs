@@ -33,17 +33,18 @@ public class ClienteService : IClienteService
 
     public async Task AdicionarAsync(ClienteCreateDTO dto)
     {
-        // 🔐 CRIPTOGRAFIA (HASHING) AQUI
-        // O BCrypt gera um Hash seguro que já inclui o "Salt" internamente
         string hashSeguro = BCrypt.Net.BCrypt.HashPassword(dto.Senha);
+        
+        // 👇 Remove pontos, traços e espaços do CPF
+        string cpfNumerico = new string(dto.NroCPF.Where(char.IsDigit).ToArray());
 
         var cliente = new Cliente {
             NomCliente = dto.NomCliente, 
-            NroCPF = dto.NroCPF, 
+            NroCPF = cpfNumerico, // 👈 Salva apenas números
             NomEndereco = dto.NomEndereco, 
             DtcNascimento = dto.DtcNascimento,
-            SenhaHash = hashSeguro, // 👈 Agora enviamos o hash para a procedure
-            Role = dto.Role ?? "CLIENTE" // 👈 Define um padrão caso venha nulo
+            SenhaHash = hashSeguro,
+            Role = dto.Role ?? "CLIENTE"
         };
 
         await _repository.CreateAsync(cliente);

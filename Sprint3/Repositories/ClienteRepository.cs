@@ -26,12 +26,9 @@ public class ClienteRepository : IClienteRepository
 
     public async Task CreateAsync(Cliente c)
     {
-        string senha = string.IsNullOrEmpty(c.SenhaHash) ? "123456" : c.SenhaHash;
-        string role = string.IsNullOrEmpty(c.Role) ? "CLIENTE" : c.Role;
-
         await _context.Database.ExecuteSqlRawAsync(
             "CALL spInsCliente({0}, {1}, {2}, {3}, {4}, {5})", 
-            c.NomCliente, c.NroCPF, c.NomEndereco, c.DtcNascimento, senha, role);
+            c.NomCliente, c.NroCPF, c.NomEndereco, c.DtcNascimento, c.SenhaHash, c.Role);
     }
 
     public async Task UpdateAsync(Cliente c)
