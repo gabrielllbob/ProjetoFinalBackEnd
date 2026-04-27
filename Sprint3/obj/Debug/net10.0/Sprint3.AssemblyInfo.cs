@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("1b6da6ab-55dc-4a9d-9c2d-6b915e2337e0")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sprint3")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8085650921d056912eaba64ea1b5d13f34ee119b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9283c1284fbd669db7a444e994ebe4cc8bb642b5")]
 [assembly: System.Reflection.AssemblyProductAttribute("Sprint3")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sprint3")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

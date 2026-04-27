@@ -38,12 +38,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 // 3. CORS
+var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowAngular", policy => {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins(allowedOrigins!) // Use the list from config
               .AllowAnyMethod()
               .AllowAnyHeader()
-              .AllowCredentials(); // Importante para enviar token
+              .AllowCredentials(); 
     });
 });
 
