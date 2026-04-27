@@ -20,7 +20,9 @@ builder.Services.AddScoped<ITransacaoService, TransacaoService>();
 builder.Services.AddScoped<JwtService>();
 
 // 2. Configurar Autenticação JWT (com chave do appsettings)
-var jwtKey = builder.Configuration["JwtSettings:SecretKey"] ?? "GabrielLopesLimaPrecisaDeUmaBoaOportunidadeDeEmprego";
+var jwtKey = builder.Configuration["JwtSettings:SecretKey"] 
+             ?? throw new InvalidOperationException("A configuração 'JwtSettings:SecretKey' não foi encontrada. Configure-a no UserSecrets ou Variáveis de Ambiente.");
+
 var key = Encoding.UTF8.GetBytes(jwtKey);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
