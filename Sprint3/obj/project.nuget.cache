@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cqYrIRORET4=",
+  "dgSpecHash": "SmsMe8cbUw0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\025.038500\\Projetos\\Sprint3\\Sprint3\\Sprint3.csproj",
+  "projectFilePath": "C:\\Users\\025.038500\\Projetos\\final\\Sprint3\\Sprint3\\Sprint3.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\025.038500\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512",
     "C:\\Users\\025.038500\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

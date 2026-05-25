@@ -76,6 +76,11 @@ app.UseCors("AllowAngular");
 app.UseAuthentication(); // PRIMEIRO autenticação
 app.UseAuthorization();  // DEPOIS autorização
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapControllers();
+
+app.MapFallbackToFile("index.html");
 
 app.Run();

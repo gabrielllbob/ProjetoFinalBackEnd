@@ -399,7 +399,8 @@ CREATE PROCEDURE spDelCliente(
     IN pideCliente BIGINT
 )
 BEGIN
-    DELETE FROM clientes c
+    UPDATE clientes c
+    SET c.stsAtivo = 0
     WHERE c.ideCliente = pideCliente;
 END;
 
