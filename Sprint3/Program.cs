@@ -45,9 +45,9 @@ var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<stri
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowAngular", policy => {
         policy.WithOrigins(allowedOrigins!) // Use the list from config
-              .AllowAnyMethod()
-              .AllowAnyHeader()
-              .AllowCredentials(); 
+             .AllowAnyMethod()
+             .AllowAnyHeader()
+             .AllowCredentials(); 
     });
 });
 
@@ -56,11 +56,23 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// 4. Aplicar migrations ANTES de rodar (opcional)
+// 4. Aplicar migrations ANTES de rodar (MELHORADO COM LOGS E PROTEÇÃO)
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    dbContext.Database.Migrate();
+    var services = scope.ServiceProvider;
+    try
+    {
+        Console.WriteLine("--> Iniciando verificação de migrações pendentes...");
+        var dbContext = services.GetRequiredService<AppDbContext>();
+        
+        // Executa a migração no Railway de forma segura
+        dbContext.Database.Migrate();
+        Console.WriteLine("--> Banco de dados atualizado com sucesso no Railway!");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"--> ERRO CRÍTICO nas migrações automáticas: {ex.Message}");
+    }
 }
 
 // 5. Middlewares (ORDEM CORRETA É CRÍTICA!)
