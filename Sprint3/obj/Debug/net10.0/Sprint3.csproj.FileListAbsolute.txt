@@ -270,7 +270,7 @@ C:\Users\025.038500\Projetos\final\Sprint3\Sprint3\obj\Debug\net10.0\Sprint3.gen
 C:\Users\025.038500\Projetos\final\Sprint3\Sprint3\obj\Debug\net10.0\ref\Sprint3.dll
 C:\Users\025.038500\Projetos\final\Sprint3\Sprint3\bin\Debug\net10.0\Sprint3.staticwebassets.runtime.json
 C:\Users\025.038500\Projetos\final\Sprint3\Sprint3\obj\Debug\net10.0\compressed\yilj8f1rzy-{0}-vagikyz9qx-vagikyz9qx.gz
-C:\Users\025.038500\Projetos\final\Sprint3\Sprint3\obj\Debug\net10.0\compressed\2smqkv32eo-{0}-cpvz3sd49v-cpvz3sd49v.gz
-C:\Users\025.038500\Projetos\final\Sprint3\Sprint3\obj\Debug\net10.0\compressed\utkjbod9ot-{0}-dt7uegtjgy-dt7uegtjgy.gz
 C:\Users\025.038500\Projetos\final\Sprint3\Sprint3\obj\Debug\net10.0\compressed\ez6sv0a5py-{0}-pjm38qobjh-pjm38qobjh.gz
 C:\Users\025.038500\Projetos\final\Sprint3\Sprint3\obj\Debug\net10.0\compressed\k398grbifa-{0}-1bzrcqi2b4-1bzrcqi2b4.gz
+C:\Users\025.038500\Projetos\final\Sprint3\Sprint3\obj\Debug\net10.0\compressed\2smqkv32eo-{0}-p00v0hc4sx-p00v0hc4sx.gz
+C:\Users\025.038500\Projetos\final\Sprint3\Sprint3\obj\Debug\net10.0\compressed\rtd0nlg5r0-{0}-6izpay8t6a-6izpay8t6a.gz

@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS `bancofraude`;
-USE `bancofraude`;
+USE `railway`;
 
 DROP TABLE IF EXISTS `transacoes`;
 DROP TABLE IF EXISTS `mensalemprestimos`;
