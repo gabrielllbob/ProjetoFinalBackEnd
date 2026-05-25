@@ -76,11 +76,11 @@ using (var scope = app.Services.CreateScope())
 }
 
 // 5. Middlewares (ORDEM CORRETA É CRÍTICA!)
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Minha API v1");
+});
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAngular");
