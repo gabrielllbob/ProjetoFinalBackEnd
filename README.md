@@ -1,29 +1,30 @@
-# Projeto Full-Stack: API .NET e Frontend Angular
+# Projeto Full-Stack Unificado: API .NET e Frontend Angular
 
-Este projeto apresenta uma solução full-stack completa, composta por uma API robusta desenvolvida em **.NET** e um frontend dinâmico construído com **Angular**. A integração entre as duas partes permite uma aplicação web moderna e eficiente.
+Este projeto apresenta uma solução full-stack completa, onde o frontend desenvolvido em **Angular** está integrado ao backend, uma API robusta construída em **.NET**. Essa abordagem unificada simplifica a implantação e o gerenciamento, permitindo uma aplicação web moderna e eficiente.
 
 ## 📋 Pré-requisitos
 
 Para configurar e executar este projeto em sua máquina local, certifique-se de ter os seguintes softwares instalados:
 
 *   **[.NET SDK](https://dotnet.microsoft.com/download)**: Necessário para compilar e executar a API .NET.
-*   **[Node.js](https://nodejs.org/en/download/)**: Essencial para o desenvolvimento e execução do frontend Angular, incluindo o gerenciador de pacotes `npm`.
+*   **[Node.js](https://nodejs.org/en/download/)**: Essencial para o desenvolvimento do frontend Angular. Embora o frontend seja servido pelo backend em produção, o Node.js é necessário para construir o projeto Angular localmente.
 *   **[MySQL Server](https://dev.mysql.com/downloads/mysql/)**: O banco de dados utilizado para persistência de dados da aplicação.
 
-## 🚀 Repositórios do Projeto
+## 🚀 Repositório do Projeto
 
-O projeto está dividido em dois repositórios distintos para a API e o Frontend:
+O projeto unificado está disponível no seguinte repositório:
 
-*   **API (.NET)**: [https://github.com/gabrielllbob/Sprint3](https://github.com/gabrielllbob/Sprint3)
-*   **Frontend (Angular)**: [https://github.com/gabrielllbob/Sprint3_front](https://github.com/gabrielllbob/Sprint3_front)
+*   **Repositório Principal:** [https://github.com/gabrielllbob/Sprint3](https://github.com/gabrielllbob/Sprint3)
 
-## ⚙️ Configuração e Execução da API (.NET)
+    > **Nota:** O frontend Angular está agora integrado ao projeto .NET, residindo no diretório `wwwroot` do backend após a construção.
+
+## ⚙️ Configuração e Execução Local
 
 ### Configuração do Banco de Dados
 
 Por padrão, a API está configurada para se conectar a um servidor MySQL local na porta padrão. As credenciais e o nome do banco de dados são definidos via `user-secrets`.
 
-### Passos para Iniciar a API
+### Passos para Iniciar o Projeto Localmente
 
 1.  **Instalar a ferramenta `dotnet-ef` (se ainda não tiver):**
 
@@ -46,13 +47,29 @@ Por padrão, a API está configurada para se conectar a um servidor MySQL local 
     dotnet ef database update
     ```
 
-4.  **Executar a API:**
+4.  **Construir o Frontend Angular e publicá-lo no `wwwroot` (se ainda não estiver lá):**
+
+    Navegue até o diretório do frontend (assumindo que está em uma subpasta, por exemplo, `Frontend/`) e execute:
+
+    ```bash
+    cd Frontend/
+    npm install
+    npx ng build --configuration production
+    # Copie os arquivos gerados (geralmente em 'dist/frontend-name') para o diretório 'wwwroot' do projeto .NET
+    # Exemplo (ajuste os caminhos conforme a estrutura do seu projeto):
+    # cp -r dist/frontend-name/* ../wwwroot/
+    cd ..
+    ```
+
+    > **Importante:** Certifique-se de que os arquivos estáticos do Angular estejam no diretório `wwwroot` do projeto .NET para que a aplicação seja servida corretamente.
+
+5.  **Executar a Aplicação Full-Stack:**
 
     ```bash
     dotnet run --launch-profile https
     ```
 
-    A API estará disponível em `https://localhost:7151`.
+    A aplicação estará disponível em `https://localhost:7151`.
 
 ### Usuário Administrador Padrão
 
@@ -65,35 +82,19 @@ Após a execução das migrações do banco de dados, um usuário administrador 
 
 ### Documentação da API (Swagger)
 
-Após iniciar a API, você pode acessar a documentação interativa do Swagger nos seguintes endereços:
+Após iniciar a aplicação, você pode acessar a documentação interativa do Swagger nos seguintes endereços:
 
 *   [http://localhost:5168/swagger/index.html](http://localhost:5168/swagger/index.html)
 *   [https://localhost:7151/swagger/index.html](https://localhost:7151/swagger/index.html)
 
-## 🌐 Configuração e Execução do Frontend (Angular)
+## ☁️ Hospedagem e Implantação (Render)
 
-### Passos para Iniciar o Frontend
+Este projeto está configurado para ser implantado na plataforma [Render](https://render.com/). O Render simplifica a hospedagem de aplicações full-stack, automatizando o processo de build e deploy.
 
-1.  **Instalar as dependências do projeto:**
+### Link da Aplicação Publicada
 
-    Navegue até o diretório do frontend e execute:
+*   **Aplicação Online:** [https://projetofinalbackend-z0no.onrender.com/](https://projetofinalbackend-z0no.onrender.com/)
 
-    ```bash
-    npm install
-    ```
-
-2.  **Executar o servidor de desenvolvimento e abrir no navegador:**
-
-    ```bash
-    npx ng serve --open
-    ```
-
-    O aplicativo Angular será compilado e aberto automaticamente em seu navegador padrão, geralmente em `http://localhost:4200`.
-
-## ☁️ Versão Publicada do Frontend
-
-Uma versão do frontend também está disponível online, acessível através do seguinte link:
-
-*   [https://sprint3-front-beta.vercel.app/](https://sprint3-front-beta.vercel.app/)
+*   **Swagger Online:** [https://projetofinalbackend-z0no.onrender.com/swagger/](https://projetofinalbackend-z0no.onrender.com/swagger/)
 
 ---
